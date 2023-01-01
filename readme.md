@@ -11,28 +11,28 @@ The main tests are running in recommenders_tests.py, MIND_statistics.ipynb and r
 
 ./<br />
 ├─ Investigating_biases_in_News_Rec/        # Home-directory<br />
-│  ├─ Metric_scores/<br />                  # Saved scores for statistical tests on different history sizes
+│  ├─ Metric_scores/                        # Saved scores for statistical tests on different history sizes<br />  
 │  │  ├─ NRMS_SEED_42_HIST_...<br />
-│  ├─ utility_scripts/<br />                # Scripts for downloading (see table above) and to run code
+│  ├─ utility_scripts/                      # Scripts for downloading (see table above) and to run code<br />
 │  │  ├─ download_all.sh<br />
 │  │  ├─ download_data_large.sh<br />
 │  │  ├─ download_data_models.sh<br />
 │  │  ├─ download_data_results.sh<br />
 │  │  ├─ download_data_small.sh<br />   
-│  │  ├─ run_script.sh<br />                # Script to run python code in background on certain gpus      
+│  │  ├─ run_script.sh                      # Script to run python code in background on certain gpus<br />    
 │  ├─ utils/<br />
-│  │  ├─ bias_utils.py<br />                # Utilities for the calculation of biases
-│  │  ├─ loading_utils.py<br />             # Utilities for the downloading MIND
-│  │  ├─ model_utils.py<br />               # Utilities for interactions with recommenders models
-│  │  ├─ t_test_utils.py<br />              # Utilities for statistical t-tests
-│  ├─ attention_tests.ipynb<br />           # This file is for the investigation of attention in NRMS
-│  ├─ environment.yaml<br />                # Setup file for the conda environment
-│  ├─ MIND_statistics.ipynb<br />           # Main tests. Statistics on MIND and Bias investigation
-│  ├─ recommenders.ipynb<br />              # Performance tests on the recommenders models
-│  ├─ recommenders_tests.py<br />           # File to train NRMS on different histories
-│  ├─ t_tests.ipynb<br />                   # T-tests
-├─ recommenders/<br />                      # Forked recommenders library
-│  ├─ .../<br />
+│  │  ├─ bias_utils.py                      # Utilities for the calculation of biases<br />
+│  │  ├─ loading_utils.py                   # Utilities for the downloading MIND<br />
+│  │  ├─ model_utils.py                     # Utilities for interactions with recommenders models<br />
+│  │  ├─ t_test_utils.py                    # Utilities for statistical t-tests<br />
+│  ├─ attention_tests.ipynb                 # This file is for the investigation of attention in NRMS<br />
+│  ├─ environment.yaml                      # Setup file for the conda environment<br />
+│  ├─ MIND_statistics.ipynb                 # Main tests. Statistics on MIND and Bias investigation<br />
+│  ├─ recommenders.ipynb                      # Performance tests on the recommenders models<br />
+│  ├─ recommenders_tests.py                 # File to train NRMS on different histories<br />
+│  ├─ t_tests.ipynb                         # T-tests<br />
+├─ recommenders/                            # Forked recommenders library<br />
+│  ├─ ...
 
 
 
