@@ -7,30 +7,30 @@ With increasing automation and the continuous development of machine learning, m
 
 > Note: The home-directory is "Investigating_biases_in_News_Rec"
 
-./
-├─ Investigating_biases_in_News_Rec/    # Home-directory
-│  ├─ Metric_scores/
-│  │  ├─ NRMS_SEED_42_HIST_...
-│  ├─ utility_scripts/
-│  │  ├─ download_all.sh
-│  │  ├─ download_data_large.sh
-│  │  ├─ download_data_models.sh
-│  │  ├─ download_data_results.sh
-│  │  ├─ download_data_small.sh
-│  │  ├─ run_script.sh
-│  ├─ utils/
-│  │  ├─ bias_utils.py
-│  │  ├─ loading_utils.py
-│  │  ├─ model_utils.py
-│  │  ├─ t_test_utils.py
-│  ├─ attention_tests.ipynb
-│  ├─ environment.yaml
-│  ├─ MIND_statistics.ipynb
-│  ├─ recommenders.ipynb
-│  ├─ recommenders_tests.ipynb
-│  ├─ t_tests.ipynb
-├─ recommenders/
-│  ├─ .../
+./<br />
+├─ Investigating_biases_in_News_Rec/    # Home-directory<br />
+│  ├─ Metric_scores/<br />
+│  │  ├─ NRMS_SEED_42_HIST_...<br />
+│  ├─ utility_scripts/<br />
+│  │  ├─ download_all.sh<br />
+│  │  ├─ download_data_large.sh<br />
+│  │  ├─ download_data_models.sh<br />
+│  │  ├─ download_data_results.sh<br />
+│  │  ├─ download_data_small.sh<br />
+│  │  ├─ run_script.sh<br />
+│  ├─ utils/<br />
+│  │  ├─ bias_utils.py<br />
+│  │  ├─ loading_utils.py<br />
+│  │  ├─ model_utils.py<br />
+│  │  ├─ t_test_utils.py<br />
+│  ├─ attention_tests.ipynb<br />
+│  ├─ environment.yaml<br />
+│  ├─ MIND_statistics.ipynb<br />
+│  ├─ recommenders.ipynb<br />
+│  ├─ recommenders_tests.ipynb<br />
+│  ├─ t_tests.ipynb<br />
+├─ recommenders/<br />
+│  ├─ .../<br />
 
 
 
