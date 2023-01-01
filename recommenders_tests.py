@@ -1,10 +1,10 @@
 import os
 import sys
 
-from loading_utils import behaviors_with_historysize
+from utils.loading_utils import behaviors_with_historysize
 
-
-sys.path.insert(0,"/home/langenhagen/Masterthesis/Masterarbeit/recommenders")
+if "../recommenders" not in sys.path:
+    sys.path.insert(0,"../recommenders")
 
 import numpy as np
 import tensorflow as tf
@@ -40,7 +40,7 @@ from scipy.stats import t
 
 
 global shrink_size,data_path
-data_path = "/home/langenhagen/Masterthesis/Masterarbeit/Dataset_small"
+data_path = "Dataset_small"
 shrink_size = 20
 
 def load_small():
@@ -117,15 +117,15 @@ def get_scores_ttest_recommenders(model,test_news,test_behav,save_name=None):
     iterations = min(10000,len(behav_df))
 
     for i in range(iterations):
-        behav_df.iloc[i:i+1].to_csv("/home/langenhagen/Masterthesis/Masterarbeit/tmp/tmp_behav.tsv", sep="\t", index=False, header=False)
-        new_behav = "/home/langenhagen/Masterthesis/Masterarbeit/tmp/tmp_behav.tsv"
+        behav_df.iloc[i:i+1].to_csv("tmp/tmp_behav.tsv", sep="\t", index=False, header=False)
+        new_behav = "tmp/tmp_behav.tsv"
 
         model.test_iterator.init_behaviors(behaviors_file = new_behav)
         results.append(model.run_eval(test_news_file,new_behav))
 
     df_results = pd.DataFrame(results)
     if save_name is not None:
-        df_results.to_csv(f'/home/langenhagen/Masterthesis/Masterarbeit/Metric_scores/{save_name}')
+        df_results.to_csv(f'Metric_scores/{save_name}')
 
 def get_scores_ttest(model,test_news,test_behav,save_name=None):
     """Saves ROC AUC and accuracy scores on the the test set
@@ -156,7 +156,7 @@ def get_scores_ttest(model,test_news,test_behav,save_name=None):
     # Save Scores to csv
     score_df = pd.DataFrame(scores).T
     if save_name is not None:
-        score_df.to_csv(f'/home/langenhagen/Masterthesis/Masterarbeit/Metric_scores/{save_name}',header=None)
+        score_df.to_csv(f'Metric_scores/{save_name}',header=None)
         
 
     return score_df
@@ -175,8 +175,8 @@ def shrink_history_to_n(n : int, csv_file : str):
 
     
     # Return only path if file already exists
-    if os.path.exists(f"/home/langenhagen/Masterthesis/Masterarbeit/Dataset_small/Changed_histories/behaviors_hist_{n}.tsv"):
-        return os.path.join("/home/langenhagen/Masterthesis/Masterarbeit/Dataset_small","Changed_histories",f"behaviors_hist_{n}.tsv")
+    if os.path.exists(f"Dataset_small/Changed_histories/behaviors_hist_{n}.tsv"):
+        return os.path.join("Dataset_small","Changed_histories",f"behaviors_hist_{n}.tsv")
 
     global shrink_size
     shrink_size = n
@@ -187,9 +187,9 @@ def shrink_history_to_n(n : int, csv_file : str):
 
     # Apply the shrink top history and save file
     copy_data["History"] = copy_data["History"].apply(apply_shrink)
-    copy_data.to_csv(f"/home/langenhagen/Masterthesis/Masterarbeit/Dataset_small/Changed_histories/behaviors_hist_{shrink_size}.tsv",sep="\t",header=False,index=False)
+    copy_data.to_csv(f"Dataset_small/Changed_histories/behaviors_hist_{shrink_size}.tsv",sep="\t",header=False,index=False)
 
-    return os.path.join("/home/langenhagen/Masterthesis/Masterarbeit/Dataset_small","Changed_histories",f"behaviors_hist_{shrink_size}.tsv")
+    return os.path.join("Dataset_small","Changed_histories",f"behaviors_hist_{shrink_size}.tsv")
 
 def avg_metrics(metrics : list):
     """ Gets a list of lists of dictionaries and average the results of every i'th dictionary (which should hold the metrics)
@@ -255,18 +255,18 @@ def run_different_histories_nrms(relevant_files : list, steps : list, project_na
 
 
     # !Paths are hardcoded (change later) 
-    test_news = "/home/langenhagen/Masterthesis/Masterarbeit/Dataset_small/test/news.tsv"
-    test_behaviors = "/home/langenhagen/Masterthesis/Masterarbeit/Dataset_small/test/behaviors.tsv"
+    test_news = "Dataset_small/test/news.tsv"
+    test_behaviors = "Dataset_small/test/behaviors.tsv"
 
     for i in steps:
         # Use only users with a history bigger than i for training
         if train_on_same_size:
             # ! Hardcoded Paths
-            train_news_file = "/home/langenhagen/Masterthesis/Masterarbeit/Dataset_small/test/news.tsv"
+            train_news_file = "Dataset_small/test/news.tsv"
             train_behaviors_file = behaviors_with_historysize(i)
         # Use only users with a history bigger than 100 for training
         if train_on_large_enough:
-            train_news_file = "/home/langenhagen/Masterthesis/Masterarbeit/Dataset_small/test/news.tsv"
+            train_news_file = "Dataset_small/test/news.tsv"
             train_behaviors_file = behaviors_with_historysize(100)
 
         hparams = prepare_hparams(yaml_file, 
@@ -322,7 +322,7 @@ def run_different_histories_nrms(relevant_files : list, steps : list, project_na
             
             # Save model if needed
             if save_model and (idx == 0):
-                nrms.model.save_weights(f"/home/langenhagen/Masterthesis/Masterarbeit/Save_models/NRMS_weights_hist_{i}/")
+                nrms.model.save_weights(f"Save_models/NRMS_weights_hist_{i}/")
             if track_wand:
                 wandb.finish()
         
@@ -364,7 +364,7 @@ userDict_file,vertDict_file,subvertDict_file,yaml_file,step,epochs = 5):
     wandb.log(nrms.run_eval(valid_news_file,valid_behaviors_file))
     csv_file = pd.read_csv(train_behaviors_file,sep="\t",names=['Impression ID', 'User ID', 'Time', 'History' , 'Impressions'])
     nrms.fit(train_news_file, train_behaviors_file, valid_news_file, valid_behaviors_file, valid_news_file)
-    wandb.log(nrms.run_eval(valid_news_file,"/home/langenhagen/Masterthesis/Masterarbeit/Dataset_small/test/behaviors.tsv"))
+    wandb.log(nrms.run_eval(valid_news_file,"Dataset_small/test/behaviors.tsv"))
     wandb.finish()
 
 def run_different_hists(project_name : str ,config : dict, splitted_test : int, epochs = 5, save_model=True, track_wand=True, save_ttest_scores=False, train_on_same_size  = False, train_on_large_enough = False):
@@ -400,16 +400,16 @@ def run_different_hists(project_name : str ,config : dict, splitted_test : int, 
 
 
 def tests():
-    test_behaviors_file="/home/langenhagen/Masterthesis/Masterarbeit/Dataset_small/test/behaviors.tsv"
+    test_behaviors_file="Dataset_small/test/behaviors.tsv"
 
     p_data = pd.read_csv(test_behaviors_file,sep="\t",names=['Impression ID', 'User ID', 'Time', 'History' , 'Impressions'])
     print(p_data.head())
 
 def tests_1707():
     train_news_file,train_behaviors_file,valid_news_file,valid_behaviors_file,wordEmb_file,userDict_file,wordDict_file,vertDict_file,subvertDict_file = load_small()
-    yaml_file = os.path.join("/home/langenhagen/Masterthesis/Masterarbeit/Dataset_small", "utils", r'nrms.yaml')
+    yaml_file = os.path.join("Dataset_small", "utils", r'nrms.yaml')
 
-    test_behaviors_file="/home/langenhagen/Masterthesis/Masterarbeit/Dataset_small/test/behaviors.tsv"
+    test_behaviors_file="Dataset_small/test/behaviors.tsv"
 
     hparams= prepare_hparams(yaml_file, 
                             wordEmb_file=wordEmb_file,

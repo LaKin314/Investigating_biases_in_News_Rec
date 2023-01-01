@@ -1,4 +1,4 @@
-name: tf_newsrec
+name: investigate_newsrec_bias
 channels:
   - conda-forge
   - defaults
