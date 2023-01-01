@@ -7,31 +7,32 @@ With increasing automation and the continuous development of machine learning, m
 
 > Note: The home-directory is "Investigating_biases_in_News_Rec"
 
+The main tests are running in recommenders_tests.py, MIND_statistics.ipynb and recommenders.ipynb
+
 ./<br />
-├─ Investigating_biases_in_News_Rec/    # Home-directory<br />
-│  ├─ Metric_scores/<br />
+├─ Investigating_biases_in_News_Rec/        # Home-directory<br />
+│  ├─ Metric_scores/<br />                  # Saved scores for statistical tests on different history sizes
 │  │  ├─ NRMS_SEED_42_HIST_...<br />
-│  ├─ utility_scripts/<br />
+│  ├─ utility_scripts/<br />                # Scripts for downloading (see table above) and to run code
 │  │  ├─ download_all.sh<br />
 │  │  ├─ download_data_large.sh<br />
 │  │  ├─ download_data_models.sh<br />
 │  │  ├─ download_data_results.sh<br />
-│  │  ├─ download_data_small.sh<br />
-│  │  ├─ run_script.sh<br />
+│  │  ├─ download_data_small.sh<br />   
+│  │  ├─ run_script.sh<br />                # Script to run python code in background on certain gpus      
 │  ├─ utils/<br />
-│  │  ├─ bias_utils.py<br />
-│  │  ├─ loading_utils.py<br />
-│  │  ├─ model_utils.py<br />
-│  │  ├─ t_test_utils.py<br />
-│  ├─ attention_tests.ipynb<br />
-│  ├─ environment.yaml<br />
-│  ├─ MIND_statistics.ipynb<br />
-│  ├─ recommenders.ipynb<br />
-│  ├─ recommenders_tests.ipynb<br />
-│  ├─ t_tests.ipynb<br />
-├─ recommenders/<br />
+│  │  ├─ bias_utils.py<br />                # Utilities for the calculation of biases
+│  │  ├─ loading_utils.py<br />             # Utilities for the downloading MIND
+│  │  ├─ model_utils.py<br />               # Utilities for interactions with recommenders models
+│  │  ├─ t_test_utils.py<br />              # Utilities for statistical t-tests
+│  ├─ attention_tests.ipynb<br />           # This file is for the investigation of attention in NRMS
+│  ├─ environment.yaml<br />                # Setup file for the conda environment
+│  ├─ MIND_statistics.ipynb<br />           # Main tests. Statistics on MIND and Bias investigation
+│  ├─ recommenders.ipynb<br />              # Performance tests on the recommenders models
+│  ├─ recommenders_tests.py<br />           # File to train NRMS on different histories
+│  ├─ t_tests.ipynb<br />                   # T-tests
+├─ recommenders/<br />                      # Forked recommenders library
 │  ├─ .../<br />
-
 
 
 
