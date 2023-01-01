@@ -4,23 +4,36 @@ With increasing automation and the continuous development of machine learning, m
 
 
 ## File structure
-.
-└── Edit me to generate/
-    ├── a/
-    │   └── nice/
-    │       └── tree/
-    │           ├── diagram!
-    │           └── :)
-    └── Use indentation/
-        ├── to indicate/
-        │   ├── file
-        │   ├── and
-        │   ├── folder
-        │   └── nesting.
-        └── You can even/
-            └── use/
-                ├── markdown
-                └── bullets!
+
+> Note: The home-directory is "Investigating_biases_in_News_Rec"
+
+./
+├─ Investigating_biases_in_News_Rec/    # Home-directory
+│  ├─ Metric_scores/
+│  │  ├─ NRMS_SEED_42_HIST_...
+│  ├─ utility_scripts/
+│  │  ├─ download_all.sh
+│  │  ├─ download_data_large.sh
+│  │  ├─ download_data_models.sh
+│  │  ├─ download_data_results.sh
+│  │  ├─ download_data_small.sh
+│  │  ├─ run_script.sh
+│  ├─ utils/
+│  │  ├─ bias_utils.py
+│  │  ├─ loading_utils.py
+│  │  ├─ model_utils.py
+│  │  ├─ t_test_utils.py
+│  ├─ attention_tests.ipynb
+│  ├─ environment.yaml
+│  ├─ MIND_statistics.ipynb
+│  ├─ recommenders.ipynb
+│  ├─ recommenders_tests.ipynb
+│  ├─ t_tests.ipynb
+├─ recommenders/
+│  ├─ .../
+
+
+
 
 ## Installation
 
@@ -60,8 +73,7 @@ Due to small storage space in Github, additional big files can be downloaded via
 | ------ | ------ | ------ |
 | [utility_scripts/download_all.sh](https://github.com/LaKin314/Investigating_biases_in_News_Rec/blob/main/utility_scripts/download_all.sh) | Load all files | ------ |
 | [utility_scripts/download_small.sh](https://github.com/LaKin314/Investigating_biases_in_News_Rec/blob/main/utility_scripts/download_data_small.sh)  | Load small MIND and every modified version used| <https://seafile.cloud.uni-hannover.de/f/d1752d0ec90148ddb1bb/?dl=1> |
-| [utility_scripts/download_large.sh](https://github.com/LaKin314/Investigating_biases_in_News_Rec/blob/main/utility_scripts/download_data_large.sh)  | Load large MIND | <https://seafile.cloud.uni-hannover.de/f/94ac34a318f2449180df/?dl=1
-> |
+| [utility_scripts/download_large.sh](https://github.com/LaKin314/Investigating_biases_in_News_Rec/blob/main/utility_scripts/download_data_large.sh)  | Load large MIND | <https://seafile.cloud.uni-hannover.de/f/94ac34a318f2449180df/?dl=1> |
 | [utility_scripts/download_results.sh](https://github.com/LaKin314/Investigating_biases_in_News_Rec/blob/main/utility_scripts/download_data_results.sh)  | Load results of the tests | <https://seafile.cloud.uni-hannover.de/f/20fe4c6c2b874fd79106/?dl=1> |
 | [utility_scripts/download_models.sh](https://github.com/LaKin314/Investigating_biases_in_News_Rec/blob/main/utility_scripts/download_data_models.sh) | Load saved models of NRMS | <https://seafile.cloud.uni-hannover.de/f/a7329732a61c4a7383a4/?dl=1> |
 
