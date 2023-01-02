@@ -87,9 +87,18 @@ If you want to download only specific files use the other scripts.
 
 ### Overall usage
 
-Performance tests | recommenders.ipynb
-MIND statistics | MIND_statistics.ipynb
-Bias tests | MIND_statistics.ipynb
-History length unfairness | recommenders_tests.py
-Attention tests | attention_test.ipynb
+Performance tests | recommenders.ipynb</br>
+Performance tests were run in the section of "Learn and Visualize". Single tests are inside the specific model section.
 
+MIND statistics | MIND_statistics.ipynb</br>
+Bias tests | MIND_statistics.ipynb</br>
+First Tests are in the Mind statistics section. Bias tests are above.
+
+
+History length unfairness | recommenders_tests.py</br>
+To run the tests please comment in which test to run inside the main()
+
+Attention tests | attention_test.ipynb</br>
+
+
+ 
