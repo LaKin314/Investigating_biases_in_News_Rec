@@ -85,3 +85,11 @@ bash utility_scripts/download_all.sh
 ```
 If you want to download only specific files use the other scripts.
 
+### Overall usage
+
+Performance tests | recommenders.ipynb
+MIND statistics | MIND_statistics.ipynb
+Bias tests | MIND_statistics.ipynb
+History length unfairness | recommenders_tests.py
+Attention tests | attention_test.ipynb
+
