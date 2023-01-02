@@ -44,6 +44,11 @@ data_path = "Dataset_small"
 shrink_size = 20
 
 def load_small():
+    """Setup needed files for MIND small. Downloads the files if not in files.
+
+    Returns:
+        _type_: All necessary files
+    """
 
     train_news_file = os.path.join(data_path, 'train', r'news.tsv')
     train_behaviors_file = os.path.join(data_path, 'train', r'behaviors.tsv')
@@ -77,6 +82,14 @@ def load_small():
 
 
 def apply_shrink(x):
+    """Used for shrinking histories.
+
+    Args:
+        x (_type_): History entry
+
+    Returns:
+        _type_: History of size shrink_size
+    """
     if x is np.nan:
         return ""
     split_x = x.split(" ")
@@ -84,6 +97,14 @@ def apply_shrink(x):
         return ' '.join(split_x[:shrink_size])
 
 def train_epochs(epochs : int):
+    """Trains NRMS for a number of epochs using batchsize of 32 
+
+    Args:
+        epochs (int): Number of epochs to train
+
+    Returns:
+        _type_: trained model
+    """
     yaml_file = os.path.join(data_path, "utils", r'nrms.yaml')
     train_news_file,train_behaviors_file,valid_news_file,valid_behaviors_file,wordEmb_file,userDict_file,wordDict_file,vertDict_file,subvertDict_file = load_small()
     
@@ -103,6 +124,14 @@ def train_epochs(epochs : int):
     return nrms
 
 def get_scores_ttest_recommenders(model,test_news,test_behav,save_name=None):
+    """Get t-test scores. Using the model and test data
+
+    Args:
+        model (_type_): Model to create results
+        test_news (_type_): test news file
+        test_behav (_type_): test behaviors file
+        save_name (_type_, optional): Sets the name of the saved file if none results are not saved. Defaults to None.
+    """
     test_behaviors_file = test_behav
     test_news_file = test_news
 
@@ -220,7 +249,9 @@ def avg_metrics(metrics : list):
         result.append(result_dict)
 
     return result
-    
+
+
+# Main function to use for the tests on NRMS
 def run_different_histories_nrms(relevant_files : list, steps : list, project_name : str, config : dict, epochs = 5, save_model = False, track_wand = True, save_ttest_scores = False, seed_list = [42,43,44], train_on_same_size = False, train_on_large_enough = False, track_only_avg = True):
     """Tests how model performs on different history sizes
 
@@ -253,15 +284,13 @@ def run_different_histories_nrms(relevant_files : list, steps : list, project_na
 
     seeds = seed_list
 
-
-    # !Paths are hardcoded (change later) 
     test_news = "Dataset_small/test/news.tsv"
     test_behaviors = "Dataset_small/test/behaviors.tsv"
 
     for i in steps:
         # Use only users with a history bigger than i for training
         if train_on_same_size:
-            # ! Hardcoded Paths
+
             train_news_file = "Dataset_small/test/news.tsv"
             train_behaviors_file = behaviors_with_historysize(i)
         # Use only users with a history bigger than 100 for training
@@ -399,34 +428,6 @@ def run_different_hists(project_name : str ,config : dict, splitted_test : int, 
 
 
 
-def tests():
-    test_behaviors_file="Dataset_small/test/behaviors.tsv"
-
-    p_data = pd.read_csv(test_behaviors_file,sep="\t",names=['Impression ID', 'User ID', 'Time', 'History' , 'Impressions'])
-    print(p_data.head())
-
-def tests_1707():
-    train_news_file,train_behaviors_file,valid_news_file,valid_behaviors_file,wordEmb_file,userDict_file,wordDict_file,vertDict_file,subvertDict_file = load_small()
-    yaml_file = os.path.join("Dataset_small", "utils", r'nrms.yaml')
-
-    test_behaviors_file="Dataset_small/test/behaviors.tsv"
-
-    hparams= prepare_hparams(yaml_file, 
-                            wordEmb_file=wordEmb_file,
-                            wordDict_file=wordDict_file, 
-                            userDict_file=userDict_file,
-                            vertDict_file=vertDict_file, 
-                            subvertDict_file=subvertDict_file,
-                            batch_size=32,
-                            epochs=2)
-
-    nrms = NRMSModel(hparams,MINDIterator,42)
-    wandb.login()
-    wandb.init(project="DELETE",name=f"|History| = (tests)",reinit=True)
-
-    nrms, results = nrms.fit(train_news_file, train_behaviors_file, valid_news_file, valid_behaviors_file, valid_news_file,track_wand=True,results_as_list = True)
-    print(results)
-
 def test_single_run():
     steps = [10]
 
@@ -451,6 +452,9 @@ def test_single_run():
     run_different_histories_nrms(relevant_files, steps,"TEST (DELETE THIS)", epochs=2, save_model=False, track_wand=False,seed_list=[42])
 
 def main():
+    """
+        Setup the tests here
+    """
 
     # --- Run each test "run_different_hists(1)", "run_different_hists(2)", "run_different_hists(3)" on different GPUs ---
 
@@ -477,9 +481,14 @@ def main():
 
     config = {"Model": model_type, "Epochs": epochs, "steps": steps,"Shrinked history" : shrinked_history, "trained on same size" : train_on_same_size, "Trained on same size with same train set" : train_on_large_enough, "Description" : description}
 
-
+    #! Comment in the tests to run
+    # Run tests on 1,10
     # run_different_hists(project_name, config, 1, epochs=epochs, save_model=save_model, track_wand=track_wand, save_ttest_scores=save_ttest_scores,train_on_same_size=train_on_same_size,train_on_large_enough=train_on_large_enough)
+    
+    # Run tests on 25,50
     # run_different_hists(project_name, config, 2,epochs=epochs, save_model=save_model, track_wand=track_wand, save_ttest_scores=save_ttest_scores,train_on_same_size=train_on_same_size,train_on_large_enough=train_on_large_enough)
+    
+    # Run tests on 100
     run_different_hists(project_name, config, 3,epochs=epochs, save_model=save_model, track_wand=track_wand, save_ttest_scores=save_ttest_scores,train_on_same_size=train_on_same_size,train_on_large_enough=train_on_large_enough)
 
     
